@@ -35,7 +35,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Navbar />
             <main className="container mx-auto max-w-7xl flex-grow px-6 pt-16">{children}</main>
             <footer className="flex w-full items-center justify-center py-3 text-sm text-foreground-400">
-              &copy; 2014, floatrx. {siteConfig.description}
+              &copy; 2014, floatrx. {siteConfig.description}.
+              <a
+                className="mx-1 text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200"
+                href="https://github.com/floatrx/next-prisma-postgres"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Source code on GitHub.
+              </a>
             </footer>
           </div>
         </Providers>
