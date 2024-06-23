@@ -1,4 +1,4 @@
-import { tv } from 'tailwind-variants';
+import { tv } from '@nextui-org/theme';
 
 export const title = tv({
   base: 'tracking-tight inline font-semibold',
@@ -41,5 +41,12 @@ export const subtitle = tv({
   },
   defaultVariants: {
     fullWidth: true,
+  },
+});
+
+export const formVariants = tv({
+  base: 'flex w-full flex-col gap-4 rounded-xl border border-foreground/30 p-4',
+  variants: {
+    isSubmitting: { true: 'locked' },
   },
 });

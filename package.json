@@ -6,32 +6,51 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
+    "db:seed": "npx prisma db seed",
+    "db:generate": "prisma generate",
+    "db:init": "npx prisma migrate dev --name init",
+    "db:preview": "npx prisma studio",
+    "db:check": "tsx prisma/check.ts",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
+    "@internationalized/date": "^3.5.4",
     "@nextui-org/button": "2.0.34",
+    "@nextui-org/chip": "^2.0.30",
     "@nextui-org/code": "2.0.29",
+    "@nextui-org/date-input": "^2.1.1",
+    "@nextui-org/date-picker": "^2.1.2",
     "@nextui-org/input": "2.2.2",
     "@nextui-org/kbd": "2.0.30",
     "@nextui-org/link": "2.0.32",
     "@nextui-org/listbox": "2.1.21",
     "@nextui-org/navbar": "2.0.33",
+    "@nextui-org/select": "^2.2.2",
     "@nextui-org/snippet": "2.0.38",
     "@nextui-org/switch": "2.0.31",
     "@nextui-org/system": "2.2.1",
     "@nextui-org/theme": "2.2.5",
+    "@prisma/client": "^5.15.1",
     "@react-aria/ssr": "3.9.4",
     "@react-aria/visually-hidden": "3.8.12",
     "clsx": "2.1.1",
     "framer-motion": "~11.1.1",
     "intl-messageformat": "^10.5.0",
+    "lucide-react": "^0.396.0",
     "next": "14.2.4",
     "next-themes": "^0.2.1",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.52.0",
+    "tsx": "^4.15.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "20.5.7",
+    "@types/node": "^20.14.8",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.2.0",
@@ -50,8 +69,9 @@
     "postcss": "8.4.38",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
+    "prisma": "^5.15.1",
     "tailwind-variants": "0.1.20",
     "tailwindcss": "3.4.3",
-    "typescript": "5.0.4"
+    "typescript": "^5.5.2"
   }
 }

@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{}
+@layer components{}
+@layer utilities{
+    .locked {
+        @apply opacity-60 pointer-events-none;
+    }
+    .stack{
+        @apply flex gap-4 items-center;
+    }
+}

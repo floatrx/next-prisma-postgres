@@ -1,23 +1,27 @@
-import { Code } from '@nextui-org/code';
-import { Snippet } from '@nextui-org/snippet';
+import { Chip } from '@nextui-org/chip';
+import { cn } from '@nextui-org/theme';
 
 import { title, subtitle } from '@/components/primitives';
+import { TodoCreateForm } from '@/features/todos/components/TodoCreateForm';
+import { TodoItem } from '@/features/todos/components/TodoItem';
+import { todosService } from '@/prisma/todos';
 
-export default function Home() {
+export default async function Home() {
+  const todos = await todosService.search();
+
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+    <section className="m-auto flex max-w-lg flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg justify-center text-center">
-        <h1 className={title()}>Next Prisma & Postgres</h1>
+        <h1 className={cn(title(), 'stack justify-center')}>
+          Todos App <Chip variant="bordered">{todos.length}</Chip>
+        </h1>
         <br />
         <h2 className={subtitle({ class: 'mt-4' })}>Testing vercel Postgres database with Prisma</h2>
       </div>
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="flat">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
+
+      <TodoCreateForm />
+
+      <div className="w-full space-y-2">{todos?.map((todo) => <TodoItem key={todo?.id} todo={todo} />)}</div>
     </section>
   );
 }
