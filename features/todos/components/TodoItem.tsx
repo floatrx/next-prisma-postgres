@@ -2,9 +2,8 @@ import type { Todo } from '@prisma/client';
 
 import { tv } from '@nextui-org/theme';
 
+import { RemoveTodoButton } from './RemoveTodoButton';
 import { TodoStatusChip } from './TodoStatusChip';
-
-import { RemoveTodoButton } from '@/features/todos/components/RemoveTodoButton';
 
 interface IProps {
   todo: Todo;

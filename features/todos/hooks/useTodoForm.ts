@@ -5,9 +5,8 @@ import { now, getLocalTimeZone } from '@internationalized/date';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { TODO_STATUSES } from '@/config/todos';
-import { createTodo } from '@/features/todos/actions/createTodo';
-import { createTodoSchema } from '@/features/todos/schemas/createTodoSchema';
+import { createTodo } from '../actions/createTodo';
+import { createTodoSchema } from '../schemas/createTodoSchema';
 
 export const useTodoForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -17,7 +16,7 @@ export const useTodoForm = () => {
     resolver: zodResolver(createTodoSchema),
     defaultValues: {
       title: '',
-      status: TODO_STATUSES[0],
+      status: 'TODO',
       dueDate: now(getLocalTimeZone()).toString(),
     },
   });

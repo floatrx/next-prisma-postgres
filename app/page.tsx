@@ -4,7 +4,7 @@ import { cn } from '@nextui-org/theme';
 import { title, subtitle } from '@/components/primitives';
 import { TodoCreateForm } from '@/features/todos/components/TodoCreateForm';
 import { TodoItem } from '@/features/todos/components/TodoItem';
-import { todosService } from '@/prisma/todos';
+import { todosService } from '@/features/todos/services/todosService';
 
 export default async function Home() {
   const todos = await todosService.search();

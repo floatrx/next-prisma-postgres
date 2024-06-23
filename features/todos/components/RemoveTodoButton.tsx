@@ -4,7 +4,7 @@ import { Button, ButtonProps } from '@nextui-org/button';
 import { Trash2Icon } from 'lucide-react';
 import { useTransition } from 'react';
 
-import { removeTodo } from '@/features/todos/actions/removeTodo';
+import { removeTodo } from '../actions/removeTodo';
 
 interface IProps extends Omit<ButtonProps, 'id'> {
   id: number;

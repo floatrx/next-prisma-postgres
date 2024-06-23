@@ -1,8 +1,9 @@
 import type { CreateTodoPayload } from '@/types/todos';
 
-import { Todo } from '@prisma/client';
+import { Todo, Status } from '@prisma/client';
 
-import { createTodoSchema } from '@/features/todos/schemas/createTodoSchema';
+import { createTodoSchema } from '../schemas/createTodoSchema';
+
 import { prismaClient } from '@/lib/prisma';
 
 export const todosService = {
@@ -34,5 +35,9 @@ export const todosService = {
    */
   async remove(id: number): Promise<Todo> {
     return prismaClient.todo.delete({ where: { id } });
+  },
+
+  getStatuses() {
+    return Object.values(Status);
   },
 };

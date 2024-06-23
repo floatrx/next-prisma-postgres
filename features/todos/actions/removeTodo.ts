@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { todosService } from '@/prisma/todos';
+import { todosService } from '@/features/todos/services/todosService';
 
 export const removeTodo = async (id: number) => {
   'use server';

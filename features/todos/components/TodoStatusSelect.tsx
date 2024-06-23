@@ -1,30 +1,14 @@
 import type { Status } from '@prisma/client';
 
 import { Select, SelectItem, SelectProps } from '@nextui-org/select';
-import { tv } from '@nextui-org/theme';
 import { forwardRef } from 'react';
 
-import { TODO_STATUSES } from '@/config/todos';
+import { TodoStatusName } from '@/features/todos/components/TodoStatusName';
+import { todosService } from '@/features/todos/services/todosService';
 
 interface IProps extends Omit<SelectProps, 'children'> {}
 
-const variants = tv({
-  base: 'size-2 rounded-full bg-red-500',
-  variants: {
-    status: {
-      TODO: 'bg-red-400 dark:bg-red-400',
-      IN_PROGRESS: 'bg-orange-400',
-      DONE: 'bg-green-500',
-    },
-  },
-});
-
-const TodoStatusName = ({ status }: { status: Status }) => (
-  <div className="flex items-center gap-2">
-    <span className={variants({ status })} />
-    <span className="font-semibold">{status.replace('_', ' ')}</span>
-  </div>
-);
+const TODO_STATUSES = todosService.getStatuses();
 
 export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>((props, ref) => (
   <Select
