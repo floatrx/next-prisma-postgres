@@ -22,13 +22,11 @@ export const useSearchParamState = (
     startTransition(() => {
       const qs = new URLSearchParams(searchParams);
 
-      // Remove key if value is the same as initial value
-      if (newValue === initialValue || !newValue) {
+      // Remove key if value is falsy
+      if (!newValue) {
         qs.delete(key);
-        console.log(`[useSearchParamState] key: "${key}": removed`);
       } else {
         qs.set(key, newValue);
-        console.log(`[useSearchParamState] key: "${key}": ${newValue}`);
       }
 
       setValue(newValue);
