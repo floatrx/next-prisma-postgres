@@ -1,5 +1,7 @@
 # Next.js & NextUI Template
 
+![Screenshot](public/screenshot.png)
+
 Demo: [https://floatrx-next-prisma-postgres.vercel.app/](https://floatrx-next-prisma-postgres.vercel.app/) 
 
 This is a simple test project to demonstrate how to use Next.js with NextUI, Prisma ORM and VercelPostgres DB. 

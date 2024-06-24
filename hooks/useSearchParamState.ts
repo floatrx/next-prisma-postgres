@@ -23,7 +23,7 @@ export const useSearchParamState = (
       const qs = new URLSearchParams(searchParams);
 
       // Remove key if value is the same as initial value
-      if (newValue === initialValue) {
+      if (newValue === initialValue || !newValue) {
         qs.delete(key);
         console.log(`[useSearchParamState] key: "${key}": removed`);
       } else {

@@ -13,7 +13,9 @@ const TODO_STATUSES = todosService.getStatuses();
 export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>((props, ref) => (
   <Select
     ref={ref}
+    aria-label="status"
     defaultSelectedKeys={[TODO_STATUSES[0]]}
+    placeholder="Status"
     renderValue={(value) => {
       // Custom render value -> textValue always is "Status"
       // https://nextui.org/docs/components/select#custom-render-value

@@ -1,10 +1,11 @@
 import { Chip } from '@nextui-org/chip';
+import { Code } from '@nextui-org/code';
 import { cn } from '@nextui-org/theme';
 
 import { title, subtitle } from '@/components/primitives';
 import { TodoCreateForm } from '@/features/todos/components/TodoCreateForm';
 import { TodoItem } from '@/features/todos/components/TodoItem';
-import { TodoSearchTitleInput } from '@/features/todos/components/TodoSearchTitleInput';
+import { TodoSearchFilters } from '@/features/todos/components/TodoSearchFilters';
 import { todosService } from '@/features/todos/services/todosService';
 
 export default async function Home({ searchParams }: PageProps<EmptyObj, { title: string }>) {
@@ -18,10 +19,11 @@ export default async function Home({ searchParams }: PageProps<EmptyObj, { title
         </h1>
         <br />
         <h2 className={subtitle({ class: 'mt-4' })}>Testing vercel Postgres database with Prisma</h2>
-        <h3>{JSON.stringify(searchParams)}</h3>
+        <Code>{JSON.stringify(searchParams)}</Code>
         <br />
-        <TodoSearchTitleInput />
       </div>
+
+      <TodoSearchFilters />
 
       <TodoCreateForm />
 

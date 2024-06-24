@@ -45,7 +45,7 @@ export const subtitle = tv({
 });
 
 export const formVariants = tv({
-  base: 'flex w-full flex-col gap-4 rounded-xl border border-foreground/30 p-4',
+  base: 'flex w-full flex-col gap-4 rounded-xl border dark:border-foreground/30 border-foreground/10 p-4 shadow-xl',
   variants: {
     isSubmitting: { true: 'locked' },
   },

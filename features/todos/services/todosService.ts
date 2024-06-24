@@ -1,24 +1,30 @@
 import type { CreateTodoPayload } from '@/types/todos';
 
-import { Todo, Status } from '@prisma/client';
+import { Todo, Status, Prisma } from '@prisma/client';
 
 import { createTodoSchema } from '../schemas/createTodoSchema';
 
 import { prismaClient } from '@/lib/prisma';
 
+type SearchParams = Prisma.TodoWhereInput;
+
 export const todosService = {
   /**
    * Search for todos
    */
-  async search({ title }: Partial<Todo> = {}): Promise<Todo[]> {
-    let where = {};
+  async search({ title, status }: Partial<Todo> = {}): Promise<Todo[]> {
+    let where: SearchParams = { status };
 
     if (title) {
-      where = {
-        title: {
-          contains: title,
-          mode: 'insensitive',
-        },
+      where.title = {
+        contains: title,
+        mode: 'insensitive',
+      };
+    }
+
+    if (status) {
+      where.status = {
+        equals: status,
       };
     }
 
