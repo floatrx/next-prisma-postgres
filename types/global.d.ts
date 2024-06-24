@@ -2,6 +2,8 @@ import React from 'react';
 
 // Global type declarations for React components
 declare global {
+  // Any function
+  export type AnyFn = (...args: any[]) => any;
   // Just empty object
   type EmptyObj = Record<string, unknown>;
   // Any object

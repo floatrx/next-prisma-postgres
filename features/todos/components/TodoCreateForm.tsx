@@ -48,7 +48,6 @@ export const TodoCreateForm = () => {
         />
       </div>
       <Input
-        autoFocus
         disabled={isSubmitting}
         errorMessage={errors.title?.message}
         isInvalid={!!errors.title}

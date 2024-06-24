@@ -10,8 +10,19 @@ export const todosService = {
   /**
    * Search for todos
    */
-  async search(): Promise<Todo[]> {
-    return prismaClient.todo.findMany();
+  async search({ title }: Partial<Todo> = {}): Promise<Todo[]> {
+    let where = {};
+
+    if (title) {
+      where = {
+        title: {
+          contains: title,
+          mode: 'insensitive',
+        },
+      };
+    }
+
+    return prismaClient.todo.findMany({ where });
   },
 
   /**
