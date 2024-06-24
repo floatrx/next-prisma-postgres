@@ -1,4 +1,4 @@
-# Next.js & NextUI Template
+# TODO app with Next.js, Prisma ORM and VercelPostgres
 
 ![Screenshot](public/screenshot.png)
 
