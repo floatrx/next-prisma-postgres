@@ -18,21 +18,23 @@ export const useSearchParamState = (
   const [isPending, startTransition] = useTransition();
   const [value, setValue] = useState(searchParams.get(key) ?? initialValue);
 
-  const updateValue = useDebounce((newValue: string) => {
-    startTransition(() => {
-      const qs = new URLSearchParams(searchParams);
+  const updateValue = useDebounce(
+    (newValue: string) => {
+      startTransition(() => {
+        const qs = new URLSearchParams(searchParams);
 
-      // Remove key if value is falsy
-      if (!newValue) {
-        qs.delete(key);
-      } else {
-        qs.set(key, newValue);
-      }
+        if (!newValue) {
+          qs.delete(key);
+        } else {
+          qs.set(key, newValue);
+        }
 
-      setValue(newValue);
-      router.replace(`${pathname}?${qs.toString()}`);
-    });
-  });
+        setValue(newValue);
+        router.replace(`${pathname}?${qs.toString()}`);
+      });
+    },
+    [searchParams],
+  );
 
   return [value, updateValue, isPending];
 };
