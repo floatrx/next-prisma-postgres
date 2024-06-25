@@ -37,7 +37,7 @@ export const TodoItem: RC<IProps> = function ({ todo }) {
   const initialTitle = useRef<string>(todo.title);
   const [isPending, startTransition] = useTransition();
 
-  const handleChange = () => {
+  const updateTitle = () => {
     startTransition(async () => {
       if (title === initialTitle.current) {
         cancelEditMode();
@@ -65,7 +65,7 @@ export const TodoItem: RC<IProps> = function ({ todo }) {
               }}
               value={title}
               variant="bordered"
-              onBlur={cancelEditMode}
+              onBlur={updateTitle}
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
@@ -77,7 +77,7 @@ export const TodoItem: RC<IProps> = function ({ todo }) {
                 color="success"
                 isLoading={isPending}
                 size="sm"
-                onClick={handleChange}
+                onClick={updateTitle}
               >
                 <Check size={15} />
               </Button>
