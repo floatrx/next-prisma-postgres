@@ -5,11 +5,15 @@ import { revalidatePath } from 'next/cache';
 import { todosService } from '@/features/todos/services/todosService';
 
 export const removeTodo = async (id: number) => {
-  'use server';
+  try {
+    await todosService.remove(id);
 
-  await todosService.remove(id);
+    revalidatePath('/');
+  } catch (e) {
+    console.error(e);
 
-  revalidatePath('/');
+    return { success: false, error: e.message };
+  }
 
   return { success: true };
 };

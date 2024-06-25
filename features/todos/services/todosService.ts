@@ -1,8 +1,8 @@
-import type { CreateTodoPayload } from '@/types/todos';
+import type { CreateTodoPayload, UpdateTodoPayload } from '@/types/todos';
 
 import { Todo, Status, Prisma } from '@prisma/client';
 
-import { createTodoSchema } from '../schemas/createTodoSchema';
+import { createTodoSchema, updateTodoSchema } from '../schemas/createTodoSchema';
 
 import { prismaClient } from '@/lib/prisma';
 
@@ -31,6 +31,17 @@ export const todosService = {
     return prismaClient.todo.findMany({ where });
   },
 
+  async update(id: number, payload: UpdateTodoPayload): Promise<Todo> {
+    const { error, success, data } = updateTodoSchema.safeParse(payload);
+
+    if (!success) {
+      console.error(error);
+      throw new Error(error.message);
+    }
+
+    return prismaClient.todo.update({ where: { id }, data });
+  },
+
   /**
    * Create a new todo
    * @param payload
@@ -40,7 +51,7 @@ export const todosService = {
 
     if (!success) {
       console.error(error);
-      throw new Error('Invalid input');
+      throw new Error(error.message);
     }
 
     return prismaClient.todo.create({ data });

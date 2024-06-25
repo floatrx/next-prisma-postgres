@@ -5,6 +5,8 @@ import { tv } from '@nextui-org/theme';
 import { RemoveTodoButton } from './RemoveTodoButton';
 import { TodoStatusChip } from './TodoStatusChip';
 
+import { ChangeTodoStatus } from '@/features/todos/components/ChangeTodoStatus';
+
 interface IProps {
   todo: Todo;
 }
@@ -24,7 +26,9 @@ export const TodoItem: RC<IProps> = ({ todo }) => (
   <div className={variants({ status: todo.status })}>
     <h3>{todo.title}</h3>
     <div className="stack">
-      <TodoStatusChip status={todo.status} />
+      <ChangeTodoStatus todo={todo}>
+        <TodoStatusChip status={todo.status} />
+      </ChangeTodoStatus>
       <RemoveTodoButton id={todo.id} />
     </div>
   </div>

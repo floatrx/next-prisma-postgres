@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { createTodoSchema } from '@/features/todos/schemas/createTodoSchema';
+import { createTodoSchema, updateTodoSchema } from '@/features/todos/schemas/createTodoSchema';
 
 export enum TodoStatuses {
   TODO = 1,
@@ -9,3 +9,4 @@ export enum TodoStatuses {
 }
 
 export type CreateTodoPayload = z.infer<typeof createTodoSchema>;
+export type UpdateTodoPayload = z.infer<typeof updateTodoSchema>;
