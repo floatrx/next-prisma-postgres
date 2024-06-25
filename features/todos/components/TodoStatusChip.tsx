@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const variants = tv({
-  base: 'rounded px-1 text-sm font-bold text-white shadow shadow-lg',
+  base: 'rounded px-1 text-sm font-bold text-white shadow-md',
   variants: {
     status: {
       TODO: 'bg-red-400 dark:bg-red-500 shadow-red-400/20 dark:text-red-950',

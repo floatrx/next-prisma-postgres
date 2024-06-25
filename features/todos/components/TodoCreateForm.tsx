@@ -10,12 +10,10 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Controller } from 'react-hook-form';
 
-import { useTodoForm } from '../hooks/useTodoForm';
-
-import { TodoStatusSelect } from './TodoStatusSelect';
-
 import { CustomDatePicker } from '@/components/form/CustomDatePicker';
 import { formVariants } from '@/components/primitives';
+import { TodoStatusSelect } from '@/features/todos/components/TodoStatusSelect';
+import { useTodoForm } from '@/features/todos/hooks/useTodoForm';
 
 export const TodoCreateForm = () => {
   const { formRef, form, formState, onSubmit } = useTodoForm();

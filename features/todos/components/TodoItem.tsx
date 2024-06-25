@@ -1,3 +1,5 @@
+'use client';
+
 import type { Todo } from '@prisma/client';
 
 import { Button } from '@nextui-org/button';
@@ -6,11 +8,10 @@ import { tv } from '@nextui-org/theme';
 import { Check } from 'lucide-react';
 import { useState, useRef, useTransition } from 'react';
 
-import { RemoveTodoButton } from './RemoveTodoButton';
-import { TodoStatusChip } from './TodoStatusChip';
-
 import { updateTodo } from '@/features/todos/actions/updateTodo';
 import { ChangeTodoStatus } from '@/features/todos/components/ChangeTodoStatus';
+import { RemoveTodoButton } from '@/features/todos/components/RemoveTodoButton';
+import { TodoStatusChip } from '@/features/todos/components/TodoStatusChip';
 
 interface IProps {
   todo: Todo;
@@ -18,7 +19,7 @@ interface IProps {
 }
 
 const variants = tv({
-  base: 'stack justify-between rounded-lg border p-2 px-4 text-lg cursor-pointer select-none relative',
+  base: 'stack justify-between rounded-lg border p-2 px-4 text-lg cursor-pointer select-none relative backdrop-blur-md',
   variants: {
     status: {
       TODO: 'border-red-500/50 bg-red-500/10 shadow-red-400',
@@ -33,7 +34,6 @@ const variants = tv({
 
 export const TodoItem: RC<IProps> = function ({ todo, extra }) {
   const [isEditMode, setEditMode] = useState(false);
-
   const [title, setTitle] = useState(todo.title);
   const initialTitle = useRef<string>(todo.title);
   const [isPending, startTransition] = useTransition();
@@ -69,6 +69,10 @@ export const TodoItem: RC<IProps> = function ({ todo, extra }) {
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key !== 'Enter') return;
+                updateTitle();
+              }}
             />
             <span className="stack stack-sm text-foreground">
               <Button
@@ -84,7 +88,9 @@ export const TodoItem: RC<IProps> = function ({ todo, extra }) {
             </span>
           </span>
         ) : (
-          todo.title
+          <span>
+            {todo.order} {todo.title}
+          </span>
         )}
       </h3>
       {!isEditMode && (

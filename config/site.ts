@@ -2,7 +2,7 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: 'Next.js + Postgres + Prisma + NextUI',
-  description: 'Testing vercel Postgres database with Prisma',
+  description: 'Testing Vercel Postgres DB with Next.js, Prisma, and NextUI (tailwindcss)',
   navItems: [
     {
       label: 'Home',

@@ -8,9 +8,10 @@
     "start": "next start",
     "db:seed": "npx prisma db seed",
     "db:generate": "prisma generate",
-    "db:init": "npx prisma migrate dev --name init",
-    "db:preview": "npx prisma studio",
+    "db:migrate": "npx prisma migrate dev --name init",
+    "db:view": "npx prisma studio",
     "db:check": "tsx prisma/check.ts",
+    "pretty": "prettier --write .",
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
   },
   "prisma": {

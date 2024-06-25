@@ -2,15 +2,13 @@
 
 import type { CreateTodoPayload } from '@/types/todos';
 
-import { revalidatePath } from 'next/cache';
-
+import { revalidateTodos } from '@/features/todos/actions/revalidateTodos';
 import { todosService } from '@/features/todos/services/todosService';
 
 export const createTodo = async (payload: CreateTodoPayload) => {
   try {
     await todosService.create(payload);
-
-    revalidatePath('/');
+    await revalidateTodos();
   } catch (e) {
     console.error(e);
 

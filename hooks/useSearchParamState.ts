@@ -4,36 +4,46 @@ import { useState, useTransition } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 
 /**
- * This hook is used to manage search params in the URL
+ * Possible values can be `falsy`,
+ * but the returned `value` should always be a string.
+ */
+type PossibleValues = string | null | undefined | boolean;
+
+/**
+ * This hook is used to `manage search params in the URL`
  * @param key - search param key (e.g. 'search', 'tab', etc.)
- * @param initialValue
+ * @param initialValue - initial value for the search param
+ * @param debounceMs - customise debounce time (default: 150ms)
  */
 export const useSearchParamState = (
   key: string,
-  initialValue: string = '',
-): [string, (val: string) => void, boolean] => {
+  initialValue: PossibleValues,
+  debounceMs: number = 300,
+): [string, (val?: PossibleValues) => void, boolean] => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [value, setValue] = useState(searchParams.get(key) ?? initialValue);
+  const [value, setValue] = useState<string>(String(searchParams.get(key) || initialValue || ''));
 
   const updateValue = useDebounce(
-    (newValue: string) => {
+    (newValue?: PossibleValues) => {
+      setValue(String(newValue));
+
       startTransition(() => {
         const qs = new URLSearchParams(searchParams);
 
         if (!newValue) {
           qs.delete(key);
         } else {
-          qs.set(key, newValue);
+          qs.set(key, String(newValue));
         }
 
-        setValue(newValue);
         router.replace(`${pathname}?${qs.toString()}`);
       });
     },
     [searchParams],
+    debounceMs,
   );
 
   return [value, updateValue, isPending];

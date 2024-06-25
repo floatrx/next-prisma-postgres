@@ -6,23 +6,30 @@ import { forwardRef } from 'react';
 import { TodoStatusName } from '@/features/todos/components/TodoStatusName';
 import { todosService } from '@/features/todos/services/todosService';
 
-interface IProps extends Omit<SelectProps, 'children'> {
-  showAll?: boolean;
-}
+interface IProps extends Omit<SelectProps, 'children'> {}
 
 const TODO_STATUSES = todosService.getStatuses();
 
-export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>(({ showAll, ...props }, ref) => {
+export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>(({ ...props }, ref) => {
   return (
     <Select
       ref={ref}
+      suppressHydrationWarning
       aria-label="status"
-      defaultSelectedKeys={showAll ? ['all'] : []}
       placeholder="Status"
       renderValue={(value) => {
         // Custom render value -> textValue always is "Status"
         // https://nextui.org/docs/components/select#custom-render-value
-        return <TodoStatusName status={value.at(0)!.textValue as Status} />;
+        return value.length === 1 ? (
+          <TodoStatusName status={value.at(0)!.textValue as Status} />
+        ) : (
+          <span className="flex gap-1">
+            {value.map((v) => (
+              <TodoStatusName key={v.key} hideTitle status={v.textValue as Status} />
+            ))}
+            {value.length} selected
+          </span>
+        );
       }}
       {...props}
     >
@@ -31,14 +38,6 @@ export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>(({ showAll
           <TodoStatusName status={status} />
         </SelectItem>
       ))}
-      {showAll && (
-        <SelectItem key="all" textValue="Status">
-          <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full border bg-foreground-100" />
-            <span className="font-semibold">Show All statuses</span>
-          </div>
-        </SelectItem>
-      )}
     </Select>
   );
 });

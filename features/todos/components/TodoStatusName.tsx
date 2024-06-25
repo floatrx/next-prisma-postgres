@@ -13,9 +13,14 @@ const variants = tv({
   },
 });
 
-export const TodoStatusName = ({ status }: { status: Status }) => (
+interface IProps {
+  status: Status;
+  hideTitle?: boolean;
+}
+
+export const TodoStatusName: RC<IProps> = ({ status, hideTitle }) => (
   <div className="flex items-center gap-2">
     <span className={variants({ status })} />
-    <span className="font-semibold">{status.replace('_', ' ')}</span>
+    {!hideTitle && <span className="font-semibold">{status.replace('_', ' ')}</span>}
   </div>
 );

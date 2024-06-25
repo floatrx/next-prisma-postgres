@@ -9,6 +9,7 @@ async function main() {
       title: 'First Todo',
       status: Status.TODO,
       dueDate: new Date(),
+      order: 1,
     },
   });
 
@@ -17,6 +18,7 @@ async function main() {
       title: 'Second Todo',
       status: Status.IN_PROGRESS,
       dueDate: new Date(),
+      order: 2,
     },
   });
 

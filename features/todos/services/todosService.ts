@@ -22,13 +22,18 @@ export const todosService = {
       };
     }
 
-    if (status && status !== 'all') {
+    const statusList = status?.split(',').filter((s) => s.trim()) as Status[];
+
+    if (statusList?.length) {
       where.status = {
-        equals: status,
+        in: statusList,
       };
     }
 
-    return prismaClient.todo.findMany({ where, orderBy: { id: 'desc' } });
+    return prismaClient.todo.findMany({
+      where,
+      orderBy: [{ order: 'asc' }, { id: 'asc' }],
+    });
   },
 
   async update(id: number, payload: UpdateTodoPayload): Promise<Todo> {
@@ -40,6 +45,20 @@ export const todosService = {
     }
 
     return prismaClient.todo.update({ where: { id }, data });
+  },
+
+  /**
+   * Reorder (bulk)
+   */
+  async reorder(todos: Todo[]): Promise<Todo[]> {
+    const operations = todos.map(({ id }, index) => {
+      return prismaClient.todo.update({
+        where: { id },
+        data: { order: index + 1 }, // +1 to start the order from 1 instead of 0
+      });
+    });
+
+    return prismaClient.$transaction(operations);
   },
 
   /**

@@ -1,14 +1,13 @@
 'use server';
 
-import type { UpdateTodoPayload } from '@/types/todos';
+import type { Todo } from '@prisma/client';
 
 import { revalidateTodos } from '@/features/todos/actions/revalidateTodos';
 import { todosService } from '@/features/todos/services/todosService';
 
-export const updateTodo = async (id: number, payload: UpdateTodoPayload) => {
+export const reorderTodos = async (todos: Todo[]) => {
   try {
-    await todosService.update(id, payload);
-
+    await todosService.reorder(todos);
     await revalidateTodos();
   } catch (e) {
     console.error(e);
