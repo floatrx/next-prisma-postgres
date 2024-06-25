@@ -14,10 +14,11 @@ import { ChangeTodoStatus } from '@/features/todos/components/ChangeTodoStatus';
 
 interface IProps {
   todo: Todo;
+  extra?: React.ReactNode;
 }
 
 const variants = tv({
-  base: 'stack justify-between rounded-lg border p-2 px-4 text-lg cursor-pointer',
+  base: 'stack justify-between rounded-lg border p-2 px-4 text-lg cursor-pointer select-none relative',
   variants: {
     status: {
       TODO: 'border-red-500/50 bg-red-500/10 shadow-red-400',
@@ -30,7 +31,7 @@ const variants = tv({
   },
 });
 
-export const TodoItem: RC<IProps> = function ({ todo }) {
+export const TodoItem: RC<IProps> = function ({ todo, extra }) {
   const [isEditMode, setEditMode] = useState(false);
 
   const [title, setTitle] = useState(todo.title);
@@ -52,8 +53,7 @@ export const TodoItem: RC<IProps> = function ({ todo }) {
   const cancelEditMode = setEditMode.bind(null, false);
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-    <div className={variants({ status: todo.status, isEditMode })} onClick={() => setEditMode(true)}>
+    <div className={variants({ status: todo.status, isEditMode })} onDoubleClick={() => setEditMode(true)}>
       <h3 className="flex flex-1">
         {isEditMode ? (
           <span className="stack stack-sm flex-1">
@@ -93,6 +93,7 @@ export const TodoItem: RC<IProps> = function ({ todo }) {
             <TodoStatusChip status={todo.status} />
           </ChangeTodoStatus>
           <RemoveTodoButton id={todo.id} />
+          {extra}
         </div>
       )}
     </div>

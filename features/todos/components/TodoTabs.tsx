@@ -3,8 +3,9 @@
 import { Chip } from '@nextui-org/chip';
 import { Tabs, Tab } from '@nextui-org/tabs';
 
+import { TodoReorderGroup } from '@/features/todos/components/reoder/TodoReoderGroup';
 import { TodoCreateForm } from '@/features/todos/components/TodoCreateForm';
-import { TodoList, type TodoListProps } from '@/features/todos/components/TodoList';
+import { type TodoListProps } from '@/features/todos/components/TodoList';
 import { TodoSearchFilters } from '@/features/todos/components/TodoSearchFilters';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 
@@ -31,7 +32,8 @@ export const TodoTabs: RC<IProps> = (props) => {
       >
         <div className="space-y-6">
           <TodoSearchFilters />
-          <TodoList {...props} />
+          <TodoReorderGroup {...props} />
+          <p className="text-foreground-200">Double click for Edit item</p>
         </div>
       </Tab>
     </Tabs>
