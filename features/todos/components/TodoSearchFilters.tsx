@@ -33,6 +33,7 @@ export const TodoSearchFilters: RC<IProps> = () => {
         }}
       />
       <TodoStatusSelect
+        showAll
         defaultSelectedKeys={[status]}
         size="lg"
         value={status}

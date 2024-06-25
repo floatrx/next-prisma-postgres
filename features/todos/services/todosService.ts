@@ -13,7 +13,7 @@ export const todosService = {
    * Search for todos
    */
   async search({ title, status }: Partial<Todo> = {}): Promise<Todo[]> {
-    let where: SearchParams = { status };
+    let where: SearchParams = {};
 
     if (title) {
       where.title = {
@@ -22,7 +22,7 @@ export const todosService = {
       };
     }
 
-    if (status) {
+    if (status && status !== 'all') {
       where.status = {
         equals: status,
       };
