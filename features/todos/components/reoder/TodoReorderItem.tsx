@@ -19,7 +19,10 @@ export const TodoReorderItem: RC<IProps> = ({ item }) => {
         extra={
           <div
             className="-mx-3 -my-4 cursor-grab px-1 py-1 active:cursor-grabbing"
-            onPointerDown={(e) => controls.start(e)}
+            onPointerDown={(e) => {
+              controls.start(e);
+              e.stopPropagation();
+            }}
           >
             <GripVertical size={16} />
           </div>

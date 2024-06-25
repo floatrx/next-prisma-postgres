@@ -88,9 +88,7 @@ export const TodoItem: RC<IProps> = function ({ todo, extra }) {
             </span>
           </span>
         ) : (
-          <span>
-            {todo.order} {todo.title}
-          </span>
+          todo.title
         )}
       </h3>
       {!isEditMode && (
