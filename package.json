@@ -34,6 +34,7 @@
     "@nextui-org/snippet": "2.0.38",
     "@nextui-org/switch": "2.0.31",
     "@nextui-org/system": "2.2.1",
+    "@nextui-org/tabs": "^2.0.32",
     "@nextui-org/theme": "2.2.5",
     "@prisma/client": "^5.15.1",
     "@react-aria/ssr": "3.9.4",

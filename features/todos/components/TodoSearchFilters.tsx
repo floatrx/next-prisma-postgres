@@ -27,7 +27,10 @@ export const TodoSearchFilters: RC<IProps> = () => {
         startContent={<Search />}
         variant="bordered"
         onChange={(e) => setTitle(e.target.value)}
-        onClear={() => setTitle('')}
+        onClear={() => {
+          setTitle('');
+          console.log('Cleared');
+        }}
       />
       <TodoStatusSelect
         defaultSelectedKeys={[status]}
