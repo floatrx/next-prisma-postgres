@@ -17,7 +17,7 @@ type PossibleValues = string | null | undefined | boolean;
  */
 export const useSearchParamState = (
   key: string,
-  initialValue: PossibleValues,
+  initialValue?: PossibleValues,
   debounceMs: number = 300,
 ): [string, (val?: PossibleValues) => void, boolean] => {
   const router = useRouter();

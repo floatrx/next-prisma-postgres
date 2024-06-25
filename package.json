@@ -12,7 +12,8 @@
     "db:view": "npx prisma studio",
     "db:check": "tsx prisma/check.ts",
     "pretty": "prettier --write .",
-    "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
+    "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
+    "ts:check": "tsc --noEmit"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
