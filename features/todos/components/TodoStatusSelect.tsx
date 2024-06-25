@@ -17,7 +17,7 @@ export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>(({ showAll
     <Select
       ref={ref}
       aria-label="status"
-      defaultSelectedKeys={['all']}
+      defaultSelectedKeys={showAll ? ['all'] : []}
       placeholder="Status"
       renderValue={(value) => {
         // Custom render value -> textValue always is "Status"
