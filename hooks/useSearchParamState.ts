@@ -26,10 +26,8 @@ export const useSearchParamState = (
   const [isPending, startTransition] = useTransition();
   const [value, setValue] = useState<string>(String(searchParams.get(key) || initialValue || ''));
 
-  const updateValue = useDebounce(
+  const debouncedUpdateValue = useDebounce(
     (newValue?: PossibleValues) => {
-      setValue(String(newValue));
-
       startTransition(() => {
         const qs = new URLSearchParams(searchParams);
 
@@ -45,6 +43,13 @@ export const useSearchParamState = (
     [searchParams],
     debounceMs,
   );
+
+  const updateValue = (newValue?: PossibleValues) => {
+    // Update state immediately
+    setValue(String(newValue));
+    // Call debounced function
+    debouncedUpdateValue(newValue);
+  };
 
   return [value, updateValue, isPending];
 };
