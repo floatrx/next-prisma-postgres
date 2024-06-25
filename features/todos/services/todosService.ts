@@ -28,7 +28,7 @@ export const todosService = {
       };
     }
 
-    return prismaClient.todo.findMany({ where });
+    return prismaClient.todo.findMany({ where, orderBy: { id: 'desc' } });
   },
 
   async update(id: number, payload: UpdateTodoPayload): Promise<Todo> {
