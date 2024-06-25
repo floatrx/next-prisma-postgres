@@ -24,11 +24,11 @@ export const TodoSearchFilters: RC<IProps> = () => {
       <Input
         isClearable
         color="primary"
-        defaultValue={title}
         endContent={isLoading && <Spinner size="sm" />}
         placeholder="Search todos"
         size="lg"
         startContent={<Search />}
+        value={title}
         variant="bordered"
         onChange={(e) => setTitle(e.target.value)}
         onClear={() => setTitle('')}

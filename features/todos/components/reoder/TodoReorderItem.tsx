@@ -18,11 +18,8 @@ export const TodoReorderItem: RC<IProps> = ({ item }) => {
       <TodoItem
         extra={
           <div
-            className="-mx-3 -my-4 cursor-grab px-1 py-1 active:cursor-grabbing"
-            onPointerDown={(e) => {
-              controls.start(e);
-              e.stopPropagation();
-            }}
+            className="stack -mx-3 cursor-grab px-2 py-[7px] text-foreground/50 hover:text-foreground active:cursor-grabbing"
+            onPointerDown={(e) => controls.start(e)}
           >
             <GripVertical size={16} />
           </div>
