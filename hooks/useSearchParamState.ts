@@ -7,7 +7,13 @@ import { useDebounce } from '@/hooks/useDebounce';
  * Possible values can be `falsy`,
  * but the returned `value` should always be a string.
  */
-type PossibleValues = string | null | undefined | boolean;
+type PossibleValues = string | number | boolean | undefined | null;
+
+type Fn = (
+  key: string, // search param key
+  initialValue?: PossibleValues,
+  debounceMs?: number, // customise debounce time
+) => [string, (val: PossibleValues) => void, { isPending: boolean }];
 
 /**
  * This hook is used to `manage search params in the URL`
@@ -15,41 +21,34 @@ type PossibleValues = string | null | undefined | boolean;
  * @param initialValue - initial value for the search param
  * @param debounceMs - customise debounce time (default: 150ms)
  */
-export const useSearchParamState = (
-  key: string,
-  initialValue?: PossibleValues,
-  debounceMs: number = 300,
-): [string, (val?: PossibleValues) => void, boolean] => {
+export const useSearchParamState: Fn = (key, initialValue, debounceMs = 150) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [value, setValue] = useState<string>(String(searchParams.get(key) || initialValue || ''));
 
-  const debouncedUpdateValue = useDebounce(
-    (newValue?: PossibleValues) => {
-      startTransition(() => {
-        const qs = new URLSearchParams(searchParams);
-
-        if (!newValue) {
-          qs.delete(key);
-        } else {
-          qs.set(key, String(newValue));
-        }
-
-        router.replace(`${pathname}?${qs.toString()}`);
-      });
-    },
-    [searchParams],
+  // Debounce router.replace function with transition
+  const debouncedRouterReplace = useDebounce(
+    (url: string) => startTransition(() => router.replace(url)),
+    [],
     debounceMs,
   );
 
   const updateValue = (newValue?: PossibleValues) => {
-    // Update state immediately
-    setValue(String(newValue));
+    setValue(String(newValue)); // Update state immediately
+
+    const qs = new URLSearchParams(searchParams);
+
+    if (!newValue) {
+      qs.delete(key);
+    } else {
+      qs.set(key, String(newValue));
+    }
+
     // Call debounced function
-    debouncedUpdateValue(newValue);
+    debouncedRouterReplace(`${pathname}?${qs.toString()}`);
   };
 
-  return [value, updateValue, isPending];
+  return [value, updateValue, { isPending }];
 };

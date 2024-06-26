@@ -4,16 +4,19 @@ import type { TodoListProps } from '@/features/todos/components/TodoList';
 
 import { Chip } from '@nextui-org/chip';
 import { Tabs, Tab } from '@nextui-org/tabs';
+import { useQueryState, parseAsString } from 'nuqs';
 
 import { TodoListReorderGroup } from '@/features/todos/components/reoder/TodoListReorderGroup';
 import { TodoCreateForm } from '@/features/todos/components/TodoCreateForm';
 import { TodoSearchFilters } from '@/features/todos/components/TodoSearchFilters';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
 
 interface IProps extends TodoListProps {}
 
 export const TodoTabs: RC<IProps> = ({ todos }) => {
-  const [activeTab, setActiveTab] = useSearchParamState('tab', 'list');
+  const [activeTab, setActiveTab] = useQueryState(
+    'tab',
+    parseAsString.withOptions({ clearOnDefault: true }).withDefault('list'),
+  );
 
   return (
     <Tabs aria-label="Options" defaultSelectedKey={activeTab} onSelectionChange={(key) => setActiveTab(String(key))}>
