@@ -16,6 +16,7 @@ export const TodoStatusSelect = forwardRef<HTMLSelectElement, IProps>(({ ...prop
       ref={ref}
       suppressHydrationWarning
       aria-label="status"
+      className="min-w-[180px]" // according to IN_PROGRESS size
       placeholder="Status"
       renderValue={(value) => {
         // Custom render value -> textValue always is "Status"
