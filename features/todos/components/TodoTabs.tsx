@@ -35,7 +35,7 @@ export const TodoTabs: RC<IProps> = ({ todos }) => {
         <div className="space-y-6">
           <TodoSearchFilters />
           <TodoListReorderGroup todos={todos} />
-          <p className="text-foreground-200">Double click for Edit item</p>
+          <p className="text-foreground-200">Double click for Edit item. Click status badge to change it.</p>
         </div>
       </Tab>
       <Tab key="add" className="w-full" title="Add new">

@@ -2,11 +2,12 @@ import type { CreateTodoPayload } from '@/types/todos';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { now, getLocalTimeZone } from '@internationalized/date';
+import { Status } from '@prisma/client';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { createTodo } from '../actions/createTodo';
-import { createTodoSchema } from '../schemas/createTodoSchema';
+import { createTodo } from '@/features/todos/actions/createTodo';
+import { createTodoSchema } from '@/features/todos/schemas/createTodoSchema';
 
 export const useTodoForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -16,7 +17,7 @@ export const useTodoForm = () => {
     resolver: zodResolver(createTodoSchema),
     defaultValues: {
       title: '',
-      status: 'TODO',
+      status: Status.TODO,
       dueDate: now(getLocalTimeZone()).toString(),
     },
   });
@@ -30,11 +31,10 @@ export const useTodoForm = () => {
       const response = await createTodo(values);
 
       console.log('Response:', response);
-      formRef.current?.reset();
+      form.reset();
 
       // Set timeout trick to fix focus issue
-      setTimeout(focusTitle, 0);
-      console.log('Form reset');
+      setTimeout(focusTitle, 10);
     },
     (errors) => {
       console.error('Error:', errors);

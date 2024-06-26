@@ -22,12 +22,19 @@ export const TodoCreateForm = () => {
   return (
     <form ref={formRef} className={formVariants({ isSubmitting })} onSubmit={onSubmit}>
       <div className="gap-4 space-y-4 md:flex md:space-y-0">
-        <TodoStatusSelect
-          errorMessage={errors.status?.message}
-          isInvalid={!!errors.status}
-          label="Status"
-          variant="bordered"
-          {...form.register('status', { required: true })}
+        <Controller
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <TodoStatusSelect
+              defaultSelectedKeys={[field.value]}
+              errorMessage={errors.status?.message}
+              isInvalid={!!errors.status}
+              label="Status"
+              variant="bordered"
+              {...field}
+            />
+          )}
         />
         <Controller
           control={form.control}
@@ -45,16 +52,24 @@ export const TodoCreateForm = () => {
           )}
         />
       </div>
-      <Input
-        disabled={isSubmitting}
-        errorMessage={errors.title?.message}
-        isInvalid={!!errors.title}
-        label="Title"
-        placeholder="Enter todo"
-        type="text"
-        variant="bordered"
-        {...form.register('title', { required: true })}
+      <Controller
+        control={form.control}
+        name="title"
+        render={({ field }) => (
+          <Input
+            autoFocus
+            disabled={isSubmitting}
+            errorMessage={errors.title?.message}
+            isInvalid={!!errors.title}
+            label="Title"
+            placeholder="Enter todo"
+            type="text"
+            variant="bordered"
+            {...field}
+          />
+        )}
       />
+
       <div className="stack">
         <Button
           className="flex-1"
