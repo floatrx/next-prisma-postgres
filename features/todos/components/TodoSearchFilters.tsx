@@ -32,6 +32,7 @@ export const TodoSearchFilters: RC<IProps> = () => {
   return (
     <div className="flex w-full flex-col gap-4 sm:flex-row">
       <Input
+        autoFocus
         isClearable
         color="primary"
         endContent={isLoading && <Spinner size="sm" />}
