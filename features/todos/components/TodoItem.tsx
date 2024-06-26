@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const variants = tv({
-  base: 'stack justify-between rounded-lg border p-2 px-4 text-lg cursor-pointer select-none relative backdrop-blur-md',
+  base: 'stack justify-between rounded-lg border p-2 px-4 text-lg cursor-pointer select-none relative backdrop-blur-md touch-pan-x',
   variants: {
     status: {
       TODO: 'border-red-500/50 bg-red-500/10 shadow-red-400',

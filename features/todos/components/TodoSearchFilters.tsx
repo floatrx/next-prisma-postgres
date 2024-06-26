@@ -45,6 +45,7 @@ export const TodoSearchFilters: RC<IProps> = () => {
       />
       <div className="flex gap-2">
         <TodoStatusSelect
+          className="min-w-[162px]"
           selectedKeys={(status ?? '').split(',')}
           selectionMode="multiple"
           size="lg"

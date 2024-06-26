@@ -1,3 +1,4 @@
+'use client';
 import { Link } from '@nextui-org/link';
 import {
   Navbar as NextUINavbar,
@@ -6,19 +7,21 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
 } from '@nextui-org/navbar';
 import { link as linkStyles } from '@nextui-org/theme';
 import clsx from 'clsx';
 import NextLink from 'next/link';
+import { useState } from 'react';
 
 import { GithubIcon, Logo } from '@/components/ui/icons';
 import { ThemeSwitch } from '@/components/ui/theme-switch';
 import { siteConfig } from '@/config/site';
 
 export const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar isMenuOpen={isMenuOpen} maxWidth="xl" position="sticky" onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="max-w-fit gap-3">
           <NextLink className="flex items-center justify-start gap-1" href="/">
@@ -26,7 +29,7 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">TODOS</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="ml-2 hidden justify-start gap-4 lg:flex">
+        <ul className="ml-2 hidden justify-start gap-4 sm:flex">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -63,11 +66,20 @@ export const Navbar = () => {
 
       <NavbarMenu>
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          <NavbarMenuItem>
-            <Link color="foreground" href="#" size="lg">
-              Menu item
-            </Link>
-          </NavbarMenuItem>
+          {siteConfig.navItems.map((item) => (
+            <NavbarItem key={item.href} onClick={() => setIsMenuOpen(false)}>
+              <NextLink
+                className={clsx(
+                  linkStyles({ color: 'foreground' }),
+                  'data-[active=true]:font-medium data-[active=true]:text-primary',
+                )}
+                color="foreground"
+                href={item.href}
+              >
+                {item.label}
+              </NextLink>
+            </NavbarItem>
+          ))}
         </div>
       </NavbarMenu>
     </NextUINavbar>

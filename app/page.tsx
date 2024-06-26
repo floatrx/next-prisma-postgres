@@ -1,7 +1,4 @@
-import { Code } from '@nextui-org/code';
-import { cn } from '@nextui-org/theme';
-
-import { title, subtitle } from '@/components/primitives';
+import { Page } from '@/components/layout/Page';
 import { TodoTabs } from '@/features/todos/components/TodoTabs';
 import { todosService } from '@/features/todos/services/todosService';
 
@@ -9,14 +6,8 @@ export default async function Home({ searchParams }: PageProps<EmptyObj, { title
   const todos = await todosService.search(searchParams);
 
   return (
-    <section className="m-auto flex max-w-lg flex-col items-center justify-center gap-4 md:py-10">
-      <div className="inline-block max-w-lg text-center">
-        <h1 className={cn(title(), 'stack justify-center')}>Todos App</h1>
-        <h2 className={subtitle({ class: 'mt-4' })}>Testing vercel Postgres database with Prisma</h2>
-      </div>
-      <Code>{JSON.stringify(searchParams, null, 2)}</Code>
-
+    <Page heading="Todos App" subHeading="Testing vercel Postgres database with Prisma">
       <TodoTabs todos={todos} />
-    </section>
+    </Page>
   );
 }
