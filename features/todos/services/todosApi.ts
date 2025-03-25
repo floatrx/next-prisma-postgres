@@ -8,9 +8,12 @@ const type: FeatureList = 'todo';
 
 export const todosApi = rtkApi.injectEndpoints({
   endpoints: ({ query, mutation }) => ({
-    searchTodos: query<Todo[], TodoSearchParams>({
+    searchTodos: query<Todo[], TodoSearchParams | undefined>({
       query: (params) => ({ url: path, params }),
-      providesTags: () => [type, { type, id: 'search' }],
+      providesTags: () => [
+        { type, id: 'search' }, // <- search view
+      ],
+      keepUnusedDataFor: 60 * 60 * 1000,
     }),
     createTodo: mutation<Todo, CreateTodoPayload>({
       query: (body) => ({
@@ -18,7 +21,7 @@ export const todosApi = rtkApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: () => [type],
+      invalidatesTags: (_res, _err) => [type],
     }),
     updateTodo: mutation<Todo, { id: number; body: UpdateTodoPayload }>({
       query: ({ id, body }) => ({
@@ -27,7 +30,7 @@ export const todosApi = rtkApi.injectEndpoints({
         body,
       }),
       invalidatesTags: (_res, _err, { id }) => [
-        { type, id: 'search' },
+        { type, id: 'search' }, // <- trigger refetch search view
         { type, id },
       ],
     }),
@@ -36,7 +39,11 @@ export const todosApi = rtkApi.injectEndpoints({
         url: `${path}?id=${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: () => [type],
+      invalidatesTags: (_res, _err, id) => [
+        { type }, // <- trigger refetch all todos
+        { type, id: 'search' }, // <- trigger refetch search view
+        { type, id }, // <- trigger refetch single todo
+      ],
     }),
   }),
 });
