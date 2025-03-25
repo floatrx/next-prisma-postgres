@@ -4,7 +4,7 @@ import type { Todo } from '@prisma/client';
 
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
-import { tv } from '@nextui-org/theme';
+import { tv, cn } from '@nextui-org/theme';
 import { Check } from 'lucide-react';
 import { useState, useRef, useTransition } from 'react';
 
@@ -16,6 +16,7 @@ import { TodoStatusChip } from '@/features/todos/components/TodoStatusChip';
 interface IProps {
   todo: Todo;
   extra?: React.ReactNode;
+  className?: string;
 }
 
 const variants = tv({
@@ -32,7 +33,7 @@ const variants = tv({
   },
 });
 
-export const TodoItem: RC<IProps> = function ({ todo, extra }) {
+export const TodoItem: RC<IProps> = function ({ todo, extra, className }) {
   const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(todo.title);
   const initialTitle = useRef<string>(todo.title);
@@ -53,7 +54,10 @@ export const TodoItem: RC<IProps> = function ({ todo, extra }) {
   const cancelEditMode = setEditMode.bind(null, false);
 
   return (
-    <div className={variants({ status: todo.status, isEditMode })} onDoubleClick={() => setEditMode(true)}>
+    <div
+      className={cn(variants({ status: todo.status, isEditMode }), className)}
+      onDoubleClick={() => setEditMode(true)}
+    >
       <h3 className="flex flex-1">
         {isEditMode ? (
           <span className="stack stack-sm flex-1">
@@ -81,7 +85,7 @@ export const TodoItem: RC<IProps> = function ({ todo, extra }) {
                 color="success"
                 isLoading={isPending}
                 size="sm"
-                onClick={updateTitle}
+                onPress={updateTitle}
               >
                 <Check size={15} />
               </Button>
