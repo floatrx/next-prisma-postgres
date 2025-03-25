@@ -1,18 +1,20 @@
 'use client';
-
 import type { TodoListProps } from '@/features/todos/components/TodoList';
 
 import { Chip } from '@nextui-org/chip';
 import { Tabs, Tab } from '@nextui-org/tabs';
 import { useQueryState, parseAsString } from 'nuqs';
 
-import { TodoListReorderGroup } from '@/features/todos/components/reoder/TodoListReorderGroup';
-import { TodoCreateForm } from '@/features/todos/components/TodoCreateForm';
+import {
+  TodoListReorderGroup,
+  type ITodoListReorderGroup,
+} from '@/features/todos/components/reoder/TodoListReorderGroup';
+import { TodoCreateForm, type TodoCreateFormProps } from '@/features/todos/components/TodoCreateForm';
 import { TodoSearchFilters } from '@/features/todos/components/TodoSearchFilters';
 
-interface IProps extends TodoListProps {}
+interface IProps extends TodoListProps, Pick<TodoCreateFormProps, 'onCreate'>, ITodoListReorderGroup {}
 
-export const TodoTabs: RC<IProps> = ({ todos }) => {
+export const TodoTabs: RC<IProps> = ({ onCreate, ...todoListProps }) => {
   const [activeTab, setActiveTab] = useQueryState(
     'tab',
     parseAsString.withOptions({ clearOnDefault: true }).withDefault('list'),
@@ -27,19 +29,19 @@ export const TodoTabs: RC<IProps> = ({ todos }) => {
           <span className="stack stack-sm">
             List
             <Chip className="text-xs" size="sm" variant="bordered">
-              {todos.length}
+              {todoListProps.todos.length}
             </Chip>
           </span>
         }
       >
         <div className="space-y-6">
           <TodoSearchFilters />
-          <TodoListReorderGroup todos={todos} />
+          <TodoListReorderGroup {...todoListProps} />
           <p className="text-foreground-200">Double click for Edit item. Click status badge to change it.</p>
         </div>
       </Tab>
       <Tab key="add" className="w-full" title="Add new">
-        <TodoCreateForm />
+        <TodoCreateForm onCreate={onCreate} />
       </Tab>
     </Tabs>
   );

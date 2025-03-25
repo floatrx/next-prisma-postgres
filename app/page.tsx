@@ -1,13 +1,18 @@
 import { Page } from '@/components/layout/Page';
-import { TodoTabs } from '@/features/todos/components/TodoTabs';
+import { TodoTabsWithServerActions } from '@/features/todos/components/TodoTabsWithServerActions';
 import { todosService } from '@/features/todos/services/todosService';
 
-export default async function Home({ searchParams }: PageProps<EmptyObj, { title: string }>) {
+/**
+ * SSR / RSC / SERVER ACTIONS
+ * @param searchParams
+ * @constructor
+ */
+export default async function HomeRSC({ searchParams }: PageProps<EmptyObj, { title: string }>) {
   const todos = await todosService.search(searchParams);
 
   return (
-    <Page heading="Todos App" subHeading="Testing vercel Postgres database with Prisma">
-      <TodoTabs todos={todos} />
+    <Page heading="Todos App" subHeading="RSC & Server actions">
+      <TodoTabsWithServerActions todos={todos} />
     </Page>
   );
 }

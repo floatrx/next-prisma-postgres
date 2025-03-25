@@ -10,3 +10,4 @@ export enum TodoStatuses {
 
 export type CreateTodoPayload = z.infer<typeof createTodoSchema>;
 export type UpdateTodoPayload = z.infer<typeof updateTodoSchema>;
+export type TodoSearchParams = { title?: string; status?: number };

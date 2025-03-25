@@ -1,3 +1,4 @@
+import type { TodoCreateFormProps } from '@/features/todos/components/TodoCreateForm';
 import type { CreateTodoPayload } from '@/types/todos';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -6,10 +7,11 @@ import { Status } from '@prisma/client';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { createTodo } from '@/features/todos/actions/createTodo';
 import { createTodoSchema } from '@/features/todos/schemas/createTodoSchema';
 
-export const useTodoForm = () => {
+type HookOptions = Pick<TodoCreateFormProps, 'onCreate'>;
+
+export const useTodoForm = ({ onCreate }: HookOptions) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   // Create a form using `useForm` and `zodResolver`
@@ -28,9 +30,10 @@ export const useTodoForm = () => {
   // Submit form using server-action `createTodo`
   const onSubmit = form.handleSubmit(
     async (values) => {
-      const response = await createTodo(values);
+      if (!onCreate) return;
+      const newTodo = await onCreate?.(values);
 
-      console.log('Response:', response);
+      console.log('Created :', newTodo);
       form.reset();
 
       // Set timeout trick to fix focus issue

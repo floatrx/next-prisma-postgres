@@ -6,6 +6,8 @@
  */
 'use client';
 
+import type { CreateTodoPayload } from '@/types/todos';
+
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { Controller } from 'react-hook-form';
@@ -15,8 +17,11 @@ import { formVariants } from '@/components/primitives';
 import { TodoStatusSelect } from '@/features/todos/components/TodoStatusSelect';
 import { useTodoForm } from '@/features/todos/hooks/useTodoForm';
 
-export const TodoCreateForm = () => {
-  const { formRef, form, formState, onSubmit } = useTodoForm();
+export type TodoCreateFormProps = {
+  onCreate?: (payload: CreateTodoPayload) => Promise<any>;
+};
+export const TodoCreateForm: RC<TodoCreateFormProps> = ({ onCreate }) => {
+  const { formRef, form, formState, onSubmit } = useTodoForm({ onCreate });
   const { errors, isSubmitting } = formState;
 
   return (

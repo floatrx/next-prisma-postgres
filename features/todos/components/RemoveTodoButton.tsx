@@ -4,12 +4,11 @@ import { Button, ButtonProps } from '@nextui-org/button';
 import { Trash2Icon } from 'lucide-react';
 import { useTransition } from 'react';
 
-import { removeTodo } from '@/features/todos/actions/removeTodo';
-
-interface IProps extends Omit<ButtonProps, 'id'> {
+export interface IRemoveTodoButtonProps extends Omit<ButtonProps, 'id' | 'onClick'> {
   id: number;
+  onClick?: (idTodo: number) => Promise<any>;
 }
-export const RemoveTodoButton: RC<IProps> = ({ id, ...props }) => {
+export const RemoveTodoButton: RC<IRemoveTodoButtonProps> = ({ id, onClick, ...props }) => {
   /**
    * Use a transition to show a loading spinner during server-action execution...
    * This solution works well, but it's not perfect...
@@ -26,7 +25,7 @@ export const RemoveTodoButton: RC<IProps> = ({ id, ...props }) => {
       variant="ghost"
       onPress={() => {
         startTransition(async () => {
-          await removeTodo(id);
+          await onClick?.(id);
         });
       }}
       {...props}

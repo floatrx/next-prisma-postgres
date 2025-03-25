@@ -8,15 +8,22 @@ import { tv, cn } from '@nextui-org/theme';
 import { Check } from 'lucide-react';
 import { useState, useRef, useTransition } from 'react';
 
-import { updateTodo } from '@/features/todos/actions/updateTodo';
-import { ChangeTodoStatus } from '@/features/todos/components/ChangeTodoStatus';
-import { RemoveTodoButton } from '@/features/todos/components/RemoveTodoButton';
+import { ChangeTodoStatus, type IChangeTodoStatusProps } from '@/features/todos/components/ChangeTodoStatus';
+import { RemoveTodoButton, type IRemoveTodoButtonProps } from '@/features/todos/components/RemoveTodoButton';
 import { TodoStatusChip } from '@/features/todos/components/TodoStatusChip';
 
-interface IProps {
+export interface ITodoItemProps {
   todo: Todo;
   extra?: React.ReactNode;
   className?: string;
+  onRename?: (todo: Todo, newTitle: string) => Promise<any>;
+  onRemove?: IRemoveTodoButtonProps['onClick'];
+  onStatusChange?: IChangeTodoStatusProps['onChange'];
+  /**
+   * Note: We use mapping instead of extending for custom names.
+   *       For example, the event in the button should be named `onClick` instead of `onRemove`,
+   *       but in the component, it should be `onRemove`.
+   */
 }
 
 const variants = tv({
@@ -33,7 +40,7 @@ const variants = tv({
   },
 });
 
-export const TodoItem: RC<IProps> = function ({ todo, extra, className }) {
+export const TodoItem: RC<ITodoItemProps> = function ({ todo, extra, className, onRename, onRemove, onStatusChange }) {
   const [isEditMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(todo.title);
   const initialTitle = useRef<string>(todo.title);
@@ -46,7 +53,7 @@ export const TodoItem: RC<IProps> = function ({ todo, extra, className }) {
 
         return;
       }
-      await updateTodo(todo.id, { title });
+      await onRename?.(todo, title);
       cancelEditMode();
     });
   };
@@ -97,10 +104,10 @@ export const TodoItem: RC<IProps> = function ({ todo, extra, className }) {
       </h3>
       {!isEditMode && (
         <div className="stack">
-          <ChangeTodoStatus todo={todo}>
+          <ChangeTodoStatus todo={todo} onChange={onStatusChange}>
             <TodoStatusChip status={todo.status} />
           </ChangeTodoStatus>
-          <RemoveTodoButton id={todo.id} />
+          <RemoveTodoButton id={todo.id} onClick={onRemove} />
           {extra}
         </div>
       )}

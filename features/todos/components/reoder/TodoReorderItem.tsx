@@ -1,20 +1,22 @@
-import type { Todo } from '@prisma/client';
-
 import { Reorder, useDragControls } from 'framer-motion';
 import { GripVertical } from 'lucide-react';
 
 import { todoVariants } from '@/config/animations';
-import { TodoItem } from '@/features/todos/components/TodoItem';
+import { TodoItem, type ITodoItemProps } from '@/features/todos/components/TodoItem';
 
-interface IProps {
-  item: Todo;
-}
+export interface ITodoReorderItemProps extends ITodoItemProps {}
 
-export const TodoReorderItem: RC<IProps> = ({ item }) => {
+export const TodoReorderItem: RC<ITodoReorderItemProps> = (props) => {
   const controls = useDragControls();
 
   return (
-    <Reorder.Item key={item.id} dragControls={controls} dragListener={false} value={item} variants={todoVariants.item}>
+    <Reorder.Item
+      key={props.todo.id}
+      dragControls={controls}
+      dragListener={false}
+      value={props.todo}
+      variants={todoVariants.item}
+    >
       <TodoItem
         extra={
           <div
@@ -24,7 +26,7 @@ export const TodoReorderItem: RC<IProps> = ({ item }) => {
             <GripVertical size={16} />
           </div>
         }
-        todo={item}
+        {...props}
       />
     </Reorder.Item>
   );

@@ -1,21 +1,21 @@
 'use client';
 
-import type { Status, Todo } from '@prisma/client';
+import type { Todo } from '@prisma/client';
 
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown';
 import { Spinner } from '@nextui-org/spinner';
 import { useTransition } from 'react';
 
-import { updateTodo } from '@/features/todos/actions/updateTodo';
 import { TodoStatusName } from '@/features/todos/components/TodoStatusName';
 import { todosService } from '@/features/todos/services/todosService';
 
-interface IProps {
+export interface IChangeTodoStatusProps {
   children?: React.ReactNode;
   todo: Todo;
+  onChange?: (todo: Todo, newStatus: Todo['status']) => Promise<any>;
 }
 
-export const ChangeTodoStatus: RC<IProps> = ({ todo, children }) => {
+export const ChangeTodoStatus: RC<IChangeTodoStatusProps> = ({ todo, children, onChange }) => {
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -27,7 +27,7 @@ export const ChangeTodoStatus: RC<IProps> = ({ todo, children }) => {
         aria-label="Action event example"
         onAction={(key) => {
           startTransition(async () => {
-            await updateTodo(todo.id, { status: key as Status });
+            onChange?.(todo, key as Todo['status']);
           });
         }}
       >

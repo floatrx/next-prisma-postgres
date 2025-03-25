@@ -9,15 +9,16 @@ import { useState, useEffect } from 'react';
 
 import { todoVariants } from '@/config/animations';
 import { reorderTodos } from '@/features/todos/actions/orderTodos';
-import { TodoReorderItem } from '@/features/todos/components/reoder/TodoReorderItem';
+import { TodoReorderItem, type ITodoReorderItemProps } from '@/features/todos/components/reoder/TodoReorderItem';
 import { debounce } from '@/lib/debounce';
 
 // Debounce reorderTodos server-action
 const reorderDebounced = debounce(reorderTodos, 1000);
 
-interface IProps extends TodoListProps {}
+export interface ITodoListReorderGroup extends TodoListProps, Omit<ITodoReorderItemProps, 'id' | 'todo'> {}
+//                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ will be passed in loop
 
-export const TodoListReorderGroup: RC<IProps> = ({ todos }) => {
+export const TodoListReorderGroup: RC<ITodoListReorderGroup> = ({ todos, ...itemProps }) => {
   // Local state for Reorder.Group
   const [items, setItems] = useState(todos);
 
@@ -32,8 +33,8 @@ export const TodoListReorderGroup: RC<IProps> = ({ todos }) => {
   return (
     <Reorder.Group axis="y" values={items} onReorder={handleReorder}>
       <motion.div animate="visible" className="w-full space-y-2" initial="hidden" variants={todoVariants.wrapper}>
-        {items.map((item) => (
-          <TodoReorderItem key={item.id} item={item} />
+        {items.map((todo) => (
+          <TodoReorderItem key={todo.id} todo={todo} {...itemProps} />
         ))}
       </motion.div>
     </Reorder.Group>
