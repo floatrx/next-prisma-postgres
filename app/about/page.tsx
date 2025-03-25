@@ -7,7 +7,7 @@ export default function AboutPage() {
     <Page heading="About">
       <div className="stack">
         Demos:
-        <Link href="/">SSR/RSC/SA</Link> /<Link href="/rtk">CSR/RTK (queries & mutations)</Link>
+        <Link href="/">SSR/RSC/SA</Link> /<Link href="/rtk">CSR/RTK(Q&M)</Link>
       </div>
     </Page>
   );
