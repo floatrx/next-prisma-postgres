@@ -2,9 +2,9 @@
 
 import type { Todo } from '@prisma/client';
 
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
-import { tv, cn } from '@nextui-org/theme';
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
+import { tv, cn } from '@heroui/theme';
 import { Check } from 'lucide-react';
 import { useState, useRef, useTransition } from 'react';
 

@@ -1,6 +1,6 @@
 import type { Status } from '@prisma/client';
 
-import { tv } from '@nextui-org/theme';
+import { tv } from '@heroui/theme';
 
 const variants = tv({
   base: 'size-2 rounded-full bg-foreground-100',

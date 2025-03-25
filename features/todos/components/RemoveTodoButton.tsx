@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, ButtonProps } from '@nextui-org/button';
+import { Button, ButtonProps } from '@heroui/button';
 import { Trash2Icon } from 'lucide-react';
 import { useTransition } from 'react';
 

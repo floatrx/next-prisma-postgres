@@ -1,4 +1,4 @@
-import { Spinner } from '@nextui-org/spinner';
+import { Spinner } from '@heroui/spinner';
 
 import { Heading } from '@/components/layout/Heading';
 import { SubHeading } from '@/components/layout/SubHeading';

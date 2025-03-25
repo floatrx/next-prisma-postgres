@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
-import { Spinner } from '@nextui-org/spinner';
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
+import { Spinner } from '@heroui/spinner';
 import { Search, FilterX } from 'lucide-react';
 import { useQueryState, parseAsString } from 'nuqs';
 import { useTransition } from 'react';

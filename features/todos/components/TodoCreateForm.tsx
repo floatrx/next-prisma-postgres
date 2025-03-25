@@ -8,8 +8,8 @@
 
 import type { CreateTodoPayload } from '@/types/todos';
 
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
 import { Controller } from 'react-hook-form';
 
 import { CustomDatePicker } from '@/components/form/CustomDatePicker';

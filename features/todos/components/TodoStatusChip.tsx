@@ -1,6 +1,6 @@
 import type { Status } from '@prisma/client';
 
-import { tv } from '@nextui-org/theme';
+import { tv } from '@heroui/theme';
 
 interface IProps {
   status: Status;

@@ -1,8 +1,8 @@
 'use client';
 import type { TodoListProps } from '@/features/todos/components/TodoList';
 
-import { Chip } from '@nextui-org/chip';
-import { Tabs, Tab } from '@nextui-org/tabs';
+import { Chip } from '@heroui/chip';
+import { Tabs, Tab } from '@heroui/tabs';
 import { useQueryState, parseAsString } from 'nuqs';
 
 import {

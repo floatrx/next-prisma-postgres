@@ -1,7 +1,7 @@
 'use client';
 
+import { DatePicker, DatePickerProps } from '@heroui/date-picker';
 import { parseZonedDateTime, type ZonedDateTime, CalendarDate, type CalendarDateTime } from '@internationalized/date';
-import { DatePicker, DatePickerProps } from '@nextui-org/date-picker';
 import { useState, forwardRef } from 'react';
 
 interface IProps extends Omit<DatePickerProps, 'value' | 'onChange'> {
@@ -9,7 +9,7 @@ interface IProps extends Omit<DatePickerProps, 'value' | 'onChange'> {
   onChange: (date: string) => void;
 }
 
-type PossibleDates = CalendarDate | CalendarDateTime | ZonedDateTime;
+type PossibleDates = CalendarDate | CalendarDateTime | ZonedDateTime | null;
 
 /**
  * This custom date picker component is used
@@ -29,11 +29,16 @@ export const CustomDatePicker = forwardRef<HTMLInputElement, IProps>(
     const [dateISO, setDateISO] = useState(value);
 
     // Handle date change
-    const handleChangePicker = (value: PossibleDates) => {
-      setDateRaw(value);
-      // Expose date as ISO string to the parent form
-      setDateISO(value.toString());
-      onChange?.(value.toString());
+    const handleChangePicker = (value: CalendarDate | CalendarDateTime | ZonedDateTime | null) => {
+      if (value) {
+        setDateRaw(value);
+        setDateISO(value.toString());
+        onChange?.(value.toString());
+      } else {
+        setDateRaw(null);
+        setDateISO('');
+        onChange?.('');
+      }
     };
 
     return [

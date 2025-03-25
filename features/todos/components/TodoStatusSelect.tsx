@@ -1,6 +1,6 @@
 import type { Status } from '@prisma/client';
 
-import { Select, SelectItem, SelectProps } from '@nextui-org/select';
+import { Select, SelectItem, SelectProps } from '@heroui/select';
 import { forwardRef } from 'react';
 
 import { TodoStatusName } from '@/features/todos/components/TodoStatusName';
