@@ -54,7 +54,7 @@ export const TodoItem: RC<ITodoItemProps> = function ({ todo, extra, className, 
         return;
       }
       await onRename?.(todo, title);
-      cancelEditMode();
+      setTimeout(() => cancelEditMode(), 250);
     });
   };
 

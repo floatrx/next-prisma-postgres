@@ -2,7 +2,7 @@
 
 import type { Todo } from '@prisma/client';
 
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/dropdown';
 import { Spinner } from '@nextui-org/spinner';
 import { useTransition } from 'react';
 
