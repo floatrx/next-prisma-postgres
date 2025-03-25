@@ -24,7 +24,7 @@ export const RemoveTodoButton: RC<IProps> = ({ id, ...props }) => {
       isLoading={pending}
       size="sm"
       variant="ghost"
-      onClick={() => {
+      onPress={() => {
         startTransition(async () => {
           await removeTodo(id);
         });

@@ -53,7 +53,7 @@ export const TodoSearchFilters: RC<IProps> = () => {
           variant="bordered"
           onChange={(e) => setStatus(e.target.value)}
         />
-        <Button isIconOnly className="text-foreground-600" size="lg" variant="bordered" onClick={resetFilters}>
+        <Button isIconOnly className="text-foreground-600" size="lg" variant="bordered" onPress={resetFilters}>
           <FilterX size={20} />
         </Button>
       </div>
