@@ -16,7 +16,7 @@ import { debounce } from '@/lib/debounce';
 const reorderDebounced = debounce(reorderTodos, 1000);
 
 export interface ITodoListReorderGroup extends TodoListProps, Omit<ITodoReorderItemProps, 'id' | 'todo'> {}
-//                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ will be passed in loop
+//                                                                                        ^^^^^^^^^^^^^^ will be passed in loop
 
 export const TodoListReorderGroup: RC<ITodoListReorderGroup> = ({ todos, ...itemProps }) => {
   // Local state for Reorder.Group

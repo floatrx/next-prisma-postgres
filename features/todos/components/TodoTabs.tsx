@@ -12,7 +12,7 @@ import {
 import { TodoCreateForm, type TodoCreateFormProps } from '@/features/todos/components/TodoCreateForm';
 import { TodoSearchFilters } from '@/features/todos/components/TodoSearchFilters';
 
-interface IProps extends TodoListProps, Pick<TodoCreateFormProps, 'onCreate'>, ITodoListReorderGroup {}
+interface IProps extends Pick<TodoCreateFormProps, 'onCreate'>, TodoListProps, ITodoListReorderGroup {}
 
 export const TodoTabs: RC<IProps> = ({ onCreate, ...todoListProps }) => {
   const [activeTab, setActiveTab] = useQueryState(
