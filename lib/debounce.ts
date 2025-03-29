@@ -7,9 +7,10 @@ import { DEFAULT_DEBOUNCE_DELAY } from '@/config/const';
  * @returns debounced function
  */
 export const debounce = <T extends AnyFn>(
-  fn: T,
+  fn: T | undefined,
   delay: number = DEFAULT_DEBOUNCE_DELAY,
 ): ((...args: Parameters<T>) => void) => {
+  if (!fn) return () => undefined;
   let timeoutId: NodeJS.Timeout;
 
   return (...args: Parameters<T>) => {

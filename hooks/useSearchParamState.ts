@@ -20,6 +20,7 @@ type Fn = (
  * @param key - search param key (e.g. 'search', 'tab', etc.)
  * @param initialValue - initial value for the search param
  * @param debounceMs - customise debounce time (default: 150ms)
+ * @deprecated (use nuqs instead)
  */
 export const useSearchParamState: Fn = (key, initialValue, debounceMs = 150) => {
   const router = useRouter();
@@ -47,7 +48,7 @@ export const useSearchParamState: Fn = (key, initialValue, debounceMs = 150) => 
     }
 
     // Call debounced function
-    debouncedRouterReplace(`${pathname}?${qs.toString()}`);
+    debouncedRouterReplace?.(`${pathname}?${qs.toString()}`);
   };
 
   return [value, updateValue, { isPending }];

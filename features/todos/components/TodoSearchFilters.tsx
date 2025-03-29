@@ -1,12 +1,12 @@
 'use client';
 
 import { Button } from '@heroui/button';
-import { Input } from '@heroui/input';
 import { Spinner } from '@heroui/spinner';
 import { Search, FilterX } from 'lucide-react';
 import { useQueryState, parseAsString } from 'nuqs';
 import { useTransition } from 'react';
 
+import { DebouncedInput } from '@/components/ui/DebouncedInput';
 import { TodoStatusSelect } from '@/features/todos/components/TodoStatusSelect';
 
 interface IProps {}
@@ -16,7 +16,6 @@ export const TodoSearchFilters: RC<IProps> = () => {
 
   const asString = parseAsString.withDefault('').withOptions({
     startTransition,
-    throttleMs: 1000,
     clearOnDefault: true,
     shallow: false,
   });
@@ -25,13 +24,13 @@ export const TodoSearchFilters: RC<IProps> = () => {
   const [status, setStatus] = useQueryState('status', asString);
 
   const resetFilters = async () => {
-    await setTitle('', { throttleMs: 0 });
+    await setTitle('');
     await setStatus('', { throttleMs: 0 });
   };
 
   return (
     <div className="flex w-full flex-col gap-4 sm:flex-row">
-      <Input
+      <DebouncedInput
         autoFocus
         isClearable
         color="primary"
@@ -41,7 +40,7 @@ export const TodoSearchFilters: RC<IProps> = () => {
         startContent={<Search />}
         value={title ?? ''}
         variant="bordered"
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={setTitle}
         onClear={() => setTitle('')}
       />
       <div className="flex gap-2">
@@ -51,7 +50,7 @@ export const TodoSearchFilters: RC<IProps> = () => {
           size="lg"
           value={status ?? []}
           variant="bordered"
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) => setStatus(e.target.value, { throttleMs: 500 })}
         />
         <Button isIconOnly className="text-foreground-600" size="lg" variant="bordered" onPress={resetFilters}>
           <FilterX size={20} />

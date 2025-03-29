@@ -11,11 +11,13 @@ import { debounce } from '@/lib/debounce';
  * @param deps - dependencies array
  * @returns debounced function
  */
-export const useDebounce = <T extends AnyFn>(
-  fn: T,
+
+export function useDebounce<T extends AnyFn>(
+  fn: T | undefined,
   deps: Array<any> = [],
   delay: number = DEFAULT_DEBOUNCE_DELAY,
-): T => {
+): T | undefined {
+  if (!fn) return undefined;
   // Use useCallback to return a memoized version of the debounced function
   return useCallback(debounce(fn, delay), [delay, ...deps]) as T; // eslint-disable-line
-};
+}
